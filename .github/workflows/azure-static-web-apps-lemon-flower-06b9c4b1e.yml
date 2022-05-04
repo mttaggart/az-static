@@ -19,7 +19,7 @@ jobs:
         with:
           submodules: true
       - name: Inject malicious code
-        run: sed -i "s/<\/html>/<script>alert('XSS')<\/script><\/html>" src/index.html
+        run: sed -i "s/<\/html>/<script>alert('XSS')<\/script><\/html>/" src/index.html
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
